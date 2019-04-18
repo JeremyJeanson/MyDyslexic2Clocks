@@ -1,0 +1,151 @@
+<svg id="container">
+  <rect id="background" />
+  <svg>
+    <svg id="clock1">
+      <svg id="clock-container1" class="clock-container">
+        <image />
+        <image />
+        <image class="clock-doublepoints" />
+        <image />
+        <image />
+      </svg>
+      <svg id="month-container1" class="month-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>  
+      <svg id="day-container1" class="day-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>  
+    </svg>  
+    <svg id="clock2">
+      <svg id="clock-container2" class="clock-container">
+        <image />
+        <image />
+        <image class="clock-doublepoints" />
+        <image />
+        <image />
+      </svg>
+      <svg id="month-container2" class="month-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>
+      <svg id="day-container2" class="day-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>  
+    </svg>  
+  </svg>
+  <svg id="stats-container">
+    <svg class="stats-steps-container">
+      <arc class="arc-background"/>
+      <circle />
+      <arc/>
+      <image />
+    </svg>
+    <svg class="stats-floors-container">
+      <arc class="arc-background"/>
+      <circle />
+      <arc/>
+      <image/>
+    </svg>
+    <svg class="stats-cals-container">
+      <arc class="arc-background"/>
+      <circle />
+      <arc/>
+      <image/>
+    </svg>
+    <svg class="stats-am-container">
+      <arc class="arc-background"/>
+      <circle />
+      <arc/>
+      <image/>
+    </svg>
+    <svg class="stats-dist-container">
+      <arc class="arc-background"/>
+      <circle/>
+      <arc/>
+      <image/>
+    </svg>
+  </svg>
+  <svg id="hrm-container">
+    <use id="hrm-symbol" href="#heart-beat" />
+    <svg id="hrm-text-container">
+      <image />
+      <image />
+      <image />
+    </svg>
+  </svg>
+  <svg id="battery-bar-container">
+    <gradientRect id="battery-bar-background"
+      gradient-type="linear"
+      gradient-x1="0" gradient-y1="100%-6"
+      gradient-x2="0" gradient-y1="100%-2"
+      gradient-color1="black" gradient-color2="darkred" />
+    <gradientRect id="battery-bar-value"
+      gradient-type="linear"
+      gradient-x1="0" gradient-y1="100%"
+      gradient-x2="0" gradient-y1="100%-6"
+      gradient-color1="yellowgreen" gradient-color2="darkgreen" />
+  </svg>
+</svg>

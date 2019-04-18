@@ -1,0 +1,17 @@
+msgid "secondSlock"
+msgstr "Second clock"
+
+msgid "setSecondSlock"
+msgstr "Set the time zone"
+
+msgid "backgroundColor"
+msgstr "Background Color"
+
+msgid "textColor"
+msgstr "Text Color"
+
+msgid "showBatteryBar"
+msgstr "Show battery bar"
+
+msgid "showActivities"
+msgstr "Show activities"

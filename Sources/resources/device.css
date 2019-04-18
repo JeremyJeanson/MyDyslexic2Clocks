@@ -1,0 +1,43 @@
+#clock1{
+    x:0;
+    y:0;
+    height: 84;
+    width: 100%;
+  }
+#clock2{
+    x:0;
+    y:$+20;
+    height: 84;
+    width: 100%;
+}
+.month-container {
+    x:270;
+    height: 30;
+}
+.day-container {
+    x:280;
+    height: 30;
+}  
+
+#clock-container {
+    y: 50%-30;
+  }
+  #stats-container svg{
+    height: 30;
+    width: 30;
+  }
+  .stats-steps-container{
+    x:14;
+  }
+  .stats-floors-container{
+    x:$+14;
+  }
+  .stats-cals-container{
+    x:$+14;
+  }
+  .stats-am-container{
+    x:$+14;
+  }
+  .stats-dist-container{
+    x:$+14;
+  }
