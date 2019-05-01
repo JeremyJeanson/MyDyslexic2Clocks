@@ -193,6 +193,11 @@ simpleSettings.initialize((settings: any) => {
     // update the clock
     simpleMinutes.UpdateOffset(_offsetNegative, _offsetValue);
   }
+
+  // Display based on 12H or 24H format
+  if(settings.clockDisplay24 !== undefined){
+    simpleMinutes.updateClockDisplay24(settings.clockDisplay24 as boolean);
+  }
 });
 // --------------------------------------------------------------------------------
 // Heart rate manager

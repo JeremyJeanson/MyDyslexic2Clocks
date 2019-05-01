@@ -1,5 +1,5 @@
 import clock from "clock"
-import { preferences, locale } from "user-settings";
+import { locale } from "user-settings";
 
 // Localisation
 import { gettext } from "i18n";
@@ -30,6 +30,9 @@ export class FormatedDate {
 // Callback
 let _callback: (clock1: FormatedDate, clock2: FormatedDate, mins: string) => void
 
+// H24V setting
+let _clockDisplay24: boolean;
+
 // Offset
 let _offsetNegative: boolean;
 let _offsetValue: number;
@@ -57,6 +60,12 @@ export function initialize(offsetNegative: boolean, offsetValue: number, granula
         // update the display
         Update(evt.date);
     };
+}
+
+// Update the user setting
+export function updateClockDisplay24(value: boolean): void {
+    _clockDisplay24 = value;
+    Update(_lastDate);
 }
 
 // Update the offset
@@ -160,9 +169,9 @@ function Update(date: Date) {
 // Format the hours, based on user preferences
 function FormatHours(hours: number): string {
     if (hours === undefined) return "";
-    let result = preferences.clockDisplay === "12h"
-        ? (hours % 12 || 12).toString()
-        : util.zeroPad(hours);
+    let result = _clockDisplay24 === undefined || _clockDisplay24 === true
+        ? util.zeroPad(hours)
+        : (hours % 12 || 12).toString();
     if (result.length === 1) result = " " + result;
     return result;
 }

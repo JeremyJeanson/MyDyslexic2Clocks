@@ -15,3 +15,6 @@ msgstr "Afficher le % de batterie"
 
 msgid "showActivities"
 msgstr "Afficher les activités"
+
+msgid "clockDisplay24"
+msgstr "Afficher l'heure au format 24H"

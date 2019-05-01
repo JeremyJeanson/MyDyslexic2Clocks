@@ -15,3 +15,6 @@ msgstr "Show battery bar"
 
 msgid "showActivities"
 msgstr "Show activities"
+
+msgid "clockDisplay24"
+msgstr "Use the 24 Hours clock format"
