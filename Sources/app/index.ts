@@ -7,7 +7,6 @@ import * as simpleMinutes from "./simple/clock-strings";
 // Device form screen detection
 import { me as device } from "device";
 import { locale } from "user-settings";
-import { me } from "appbit";
 
 // Elements for style
 const _container = document.getElementById("container") as GraphicsElement;
@@ -81,8 +80,8 @@ simpleMinutes.initialize(_offsetNegative, _offsetValue, "seconds", (clock1, cloc
     displayClocskVersa(clock1, clock2);
   }
 
-  // update all stats
-  UpdateActivities();
+  // update activities
+  updateActivities();
 });
 
 // Display clocks on Ionic
@@ -158,7 +157,7 @@ simpleSettings.initialize((settings: any) => {
   if (settings.colorBackground) {
     _background.style.fill = settings.colorBackground;
     _batteryBackground.gradient.colors.c1 = settings.colorBackground;
-    UpdateActivities(); // For achivement color
+    updateActivities(); // For achivement color
   }
 
   if (settings.colorForeground) {
@@ -176,7 +175,7 @@ simpleSettings.initialize((settings: any) => {
     _statsContainer.style.display = _showActities
       ? "inline"
       : "none";
-    UpdateActivities();
+      updateActivities();
   }
 
   if (settings.offset) {
@@ -217,37 +216,37 @@ simpleHRM.initialize((bpm, zone, restingHeartRate) => {
 // --------------------------------------------------------------------------------
 // Activity
 // --------------------------------------------------------------------------------
-import { goals, today } from "user-activity";
+import * as simpleActivities from "./simple/activities"
 
-goals.onreachgoal = (evt) => {
-  UpdateActivities();
-};
+// Initi
+simpleActivities.initialize(updateActivities);
 
-// Update Activities informations
-function UpdateActivities(): void {
-  RenderActivity(_stats[0], goals.steps, today.local.steps);
-  RenderActivity(_stats[1], goals.elevationGain, today.local.elevationGain);
-  RenderActivity(_stats[2], goals.calories, today.local.calories);
-  RenderActivity(_stats[3], goals.activeMinutes, today.local.activeMinutes);
-  RenderActivity(_stats[4], goals.distance, today.local.distance);
+// Update design when elevation gain is not available
+if(!simpleActivities.elevationIsAvailable()){
+  // hide elevation
+  _stats[1].style.display = "none";
+  // move stats 
+  _statsContainer.x = 30;
 }
 
-// Render an activity
-function RenderActivity(container: GraphicsElement, goal: number, done: number): void {
-  let arc = container.getElementsByTagName("arc")[1] as ArcElement;
-  let circle = container.getElementsByTagName("circle")[0] as CircleElement;
-  let image = container.getElementsByTagName("image")[0] as ImageElement;
+// Update activites
+function updateActivities(): void {
+  // Get activities
+  const activities = simpleActivities.getNewValues();
 
-  // Goals ok
-  if (done >= goal) {
-    circle.style.display = "inline";
-    arc.style.display = "none";
-    image.style.fill = _background.style.fill;
+  if (activities.steps !== undefined) {
+    simpleActivities.updateActivityArc(_stats[0], activities.steps, _background.style.fill);
   }
-  else {
-    circle.style.display = "none";
-    arc.style.display = "inline";
-    arc.sweepAngle = util.activityToAngle(goal, done);
-    image.style.fill = container.style.fill;
+  if (activities.elevationGain !== undefined) {
+    simpleActivities.updateActivityArc(_stats[1], activities.elevationGain, _background.style.fill);
+  }
+  if (activities.calories !== undefined) {
+    simpleActivities.updateActivityArc(_stats[2], activities.calories, _background.style.fill);
+  }
+  if (activities.activeMinutes !== undefined) {
+    simpleActivities.updateActivityArc(_stats[3], activities.activeMinutes, _background.style.fill);
+  }
+  if (activities.distance !== undefined) {
+    simpleActivities.updateActivityArc(_stats[4], activities.distance, _background.style.fill);
   }
 }
