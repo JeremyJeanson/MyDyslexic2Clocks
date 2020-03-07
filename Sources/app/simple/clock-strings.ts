@@ -30,7 +30,7 @@ export class FormatedDate {
 // Callback
 let _callback: (clock1: FormatedDate, clock2: FormatedDate, mins: string) => void
 
-// H24V setting
+// H24 setting
 let _clockDisplay24: boolean;
 
 // Offset
