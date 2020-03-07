@@ -1,7 +1,7 @@
 # Description
 A really simple clock + a second clock. You can select the seconde clock time zone from settings.
 It use a font designed to make life easier for dyslexic people.
-This clock is build for fitbit smartwatchs (Ionic, Versa and Versa Light).
+This clock is build for fitbit smartwatchs (Ionic, Versa, Versa 2 & Versal Light).
 
 ![Ionic screenshot 1](Screenshots/ionic1.png)
 
