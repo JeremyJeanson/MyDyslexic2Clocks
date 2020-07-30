@@ -5,8 +5,8 @@
   "repository": {},
   "devDependencies": {
     "@fitbit/sdk": "4.1.0",
-    "@fitbit/sdk-cli": "1.7.1",
-    "fitbit-sdk-types": "4.3.5"
+    "@fitbit/sdk-cli": "1.7.2",
+    "fitbit-sdk-types": "4.3.8"
   },
   "fitbit": {
     "appUUID": "4a706e19-cf1c-4a17-9685-e4f5a49ce1ec",
