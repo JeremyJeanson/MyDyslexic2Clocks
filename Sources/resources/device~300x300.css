@@ -13,6 +13,10 @@
 .month-container {
     y:90;  
 }
+.ampm-container{
+  x:100%-70;
+  y:90;
+}
 .day-container {
     display: none;
 }  

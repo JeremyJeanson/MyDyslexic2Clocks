@@ -19,12 +19,14 @@ const months = [
 ];
 import * as util from "./utils";
 type Granularity = 'off' | 'seconds' | 'minutes' | 'hours';
+type AmOrPm = "AM" | "PM" | "  ";
 
 export class FormatedDate {
     Hours: string;
     Month: string;
     Day: string;
     Date: string;
+    AmOrPm: AmOrPm;
 }
 
 // Callback
@@ -83,28 +85,36 @@ function Update(date: Date) {
     _lastDate = date;
 
     // Declare ouputs
-    let clock1 = new FormatedDate();
-    let clock2 = new FormatedDate();
+    const clock1 = new FormatedDate();
+    const clock2 = new FormatedDate();
 
     let hours: number = date.getHours();
-    // Set hours2 offset
-    let hours2: number = _offsetValue === undefined || _offsetValue === 0
-        ? date.getUTCHours()
+    // Set delta offset
+    let delta: number = _offsetValue === undefined || _offsetValue === 0
+        ? 0
         : _offsetNegative
-            ? date.getUTCHours() - Number(_offsetValue)
-            : date.getUTCHours() + Number(_offsetValue);
+            ? - Number(_offsetValue)
+            : Number(_offsetValue);
 
     // Calcul date2
-    let date2 = new Date(date.valueOf());
-    date2.setUTCHours(hours2);
+    let date2 = new Date(date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        date.getUTCHours() + delta,
+        date.getUTCMinutes(),
+        date.getUTCSeconds(),
+        date.getUTCMilliseconds());   
+        
     // Update date 2
-    hours2 = date2.getUTCHours();
+    const hours2 = date2.getHours();
 
-    // Format the hour 1
+    // Format the hour
     clock1.Hours = FormatHours(hours);
-
-    // Format the hour 2
     clock2.Hours = FormatHours(hours2);
+
+    // Format AM or PM
+    clock1.AmOrPm = getAmorPm(hours);
+    clock2.AmOrPm = getAmorPm(hours2);
 
     // Format the minutes
     let minutesOut = util.zeroPad(date.getMinutes());
@@ -117,7 +127,8 @@ function Update(date: Date) {
     if (_lastClock1 === undefined) _lastClock1 = new FormatedDate();
     if (_lastClock2 === undefined) _lastClock2 = new FormatedDate();
 
-    // Save or updage states
+    // Save or updage values
+    // Hours
     if (_lastClock1.Hours != clock1.Hours) {
         _lastClock1.Hours = clock1.Hours;
     }
@@ -130,6 +141,20 @@ function Update(date: Date) {
     else {
         clock2.Hours = null;
     }
+    // AM or PM
+    if (_lastClock1.AmOrPm != clock1.AmOrPm) {
+        _lastClock1.AmOrPm = clock1.AmOrPm;
+    }
+    else {
+        clock1.AmOrPm = null;
+    }
+    if (_lastClock2.AmOrPm != clock2.AmOrPm) {
+        _lastClock2.AmOrPm = clock2.AmOrPm;
+    }
+    else {
+        clock2.AmOrPm = null;
+    }
+    // Minutes
     if (_lastMinutes != minutesOut) {
         _lastMinutes = minutesOut;
     }
@@ -188,4 +213,17 @@ function FormatDate(date: Date, clock: FormatedDate): void {
     }
     clock.Month = month;
     clock.Day = day === undefined ? "" : day.toString();
+}
+
+// Format AM or PM base on hours
+function getAmorPm(hours: number): AmOrPm {
+    // Format AM / PM if requested
+    if (_clockDisplay24 === undefined || _clockDisplay24 === true) {
+        // No AM or PM
+        return "  ";
+    }
+    else {
+        // AM / PM are available
+        return hours < 12 ? "AM" : "PM";
+    }
 }

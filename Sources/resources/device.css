@@ -18,10 +18,11 @@
     x:280;
     height: 30;
 }  
+.ampm-container{
+  x:270;
+  y:60;
+}
 
-#clock-container {
-    y: 50%-30;
-  }
   #stats-container svg{
     height: 30;
     width: 30;

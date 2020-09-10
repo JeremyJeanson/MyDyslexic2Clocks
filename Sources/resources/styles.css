@@ -11,16 +11,16 @@
 .clock-container {
   x: 0;
   y: 0;
-  height: 100%;
-  width: 110;
+  height: 84; /* 84 */ 
+  width: 252; /* 252 */
 }
 .clock-container image {
   x:$;
-  height: 84;
-  width: 58;
+  height: 100%;
+  width: 23%;
 }  
 .clock-container .clock-doublepoints{
-  width:25;
+  width:8%;
   href:"images/doublepoints.png";
 }
 
@@ -31,6 +31,12 @@
   height: 30;
 }
 .day-container image{
+  x:$;
+  y:0;
+  width: 20;
+  height: 30;
+}
+.ampm-container image{
   x:$;
   y:0;
   width: 20;

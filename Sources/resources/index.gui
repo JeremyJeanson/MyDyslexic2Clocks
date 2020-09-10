@@ -46,6 +46,10 @@
         <image />
         <image />
         <image />
+      </svg>
+      <svg id="ampm-container1" class="ampm-container">
+        <image />
+        <image />
       </svg>  
     </svg>  
     <svg id="clock2">
@@ -93,7 +97,11 @@
         <image />
         <image />
         <image />
-      </svg>  
+      </svg>
+      <svg id="ampm-container2" class="ampm-container">
+        <image />
+        <image />
+      </svg>    
     </svg>  
   </svg>
   <svg id="stats-container">
