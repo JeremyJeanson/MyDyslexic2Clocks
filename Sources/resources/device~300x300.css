@@ -20,22 +20,8 @@
 .day-container {
     display: none;
 }  
-#stats-container svg{
+#stats-container .stat{
     height: 30;
     width: 30;
-  }
-  .stats-steps-container{
-    x:4;
-  }
-  .stats-floors-container{
-    x:$+8;
-  }
-  .stats-cals-container{
-    x:$+8;
-  }
-  .stats-am-container{
-    x:$+8;
-  }
-  .stats-dist-container{
     x:$+8;
   }

@@ -1,5 +1,5 @@
 import document from "document";
-import * as util from "./simple/utils";
+import * as utils from "./simple/utils";
 
 // import clock from "clock";
 import * as simpleMinutes from "./simple/clock-strings";
@@ -7,6 +7,12 @@ import * as simpleMinutes from "./simple/clock-strings";
 // Device form screen detection
 import { me as device } from "device";
 import { locale } from "user-settings";
+// Settings
+import { Settings } from "../common/settings";
+// Fonts
+import * as font from "./simple/font";
+import * as simpleDisplay from "./simple/display";
+import { ActivitySymbol } from "./simple/activity-symbol";
 
 // Elements for style
 const _container = document.getElementById("container") as GraphicsElement;
@@ -28,6 +34,10 @@ const _clockContainer1 = document.getElementById("clock-container1") as Graphics
 const _clockContainer2 = document.getElementById("clock-container2") as GraphicsElement;
 const _cloks1 = _clockContainer1.getElementsByTagName("image") as ImageElement[];
 const _cloks2 = _clockContainer2.getElementsByTagName("image") as ImageElement[];
+const _cloks1Hours = _cloks1.slice(0, 2);
+const _cloks2Hours = _cloks2.slice(0, 2);
+const _cloks1Minutes = _cloks1.slice(3, 5);
+const _cloks2Minutes = _cloks2.slice(3, 5);
 
 // AM or PM
 const _ampmContainer1 = document.getElementById("ampm-container1") as GraphicsElement;
@@ -50,9 +60,13 @@ let _offsetValue: number;
 
 // Stats
 const _statsContainer = document.getElementById("stats-container") as GraphicsElement;
-const _stats = _statsContainer.getElementsByTagName("svg") as GraphicsElement[];
+const _steps = new ActivitySymbol(document.getElementById("steps") as GraphicsElement,_background);
+const _calories = new ActivitySymbol(document.getElementById("calories") as GraphicsElement,_background);
+const _activesminutes = new ActivitySymbol(document.getElementById("activesminutes") as GraphicsElement,_background);
+const _distance = new ActivitySymbol(document.getElementById("distance") as GraphicsElement,_background);
+const _elevation = new ActivitySymbol(document.getElementById("elevation") as GraphicsElement,_background);
 
-import { Settings } from "../common/settings";
+// Settings
 const _settings = new Settings();
 
 // --------------------------------------------------------------------------------
@@ -60,35 +74,30 @@ const _settings = new Settings();
 // --------------------------------------------------------------------------------
 // Update the clock every minute
 simpleMinutes.initialize(_offsetNegative, _offsetValue, "seconds", (clock1, clock2, mins) => {
-  // hours="88";
-  // mins="88";
-  // date = "january 20";
+  const folder: font.folder = simpleDisplay.isInAodMode()
+    ? "chars-aod"
+    : "chars";
+
   // Hours
   if (clock1.Hours) {
-    _cloks1[0].href = util.getImageFromLeft(clock1.Hours, 0);
-    _cloks1[1].href = util.getImageFromLeft(clock1.Hours, 1);
+    font.print(clock1.Hours, _cloks1Hours, folder);
   }
   if (clock2.Hours) {
-    _cloks2[0].href = util.getImageFromLeft(clock2.Hours, 0);
-    _cloks2[1].href = util.getImageFromLeft(clock2.Hours, 1);
+    font.print(clock2.Hours, _cloks2Hours, folder);
   }
 
   // Minutes
   if (mins) {
-    let mins0 = util.getImageFromLeft(mins, 0);
-    let mins1 = util.getImageFromLeft(mins, 1);
-    _cloks1[3].href = mins0;
-    _cloks1[4].href = mins1;
-    _cloks2[3].href = mins0;
-    _cloks2[4].href = mins1;
+    font.print(mins, _cloks1Minutes, folder);
+    font.print(mins, _cloks2Minutes, folder);
   }
 
   // AM or PM
   if (clock1.AmOrPm) {
-    util.display(clock1.AmOrPm, _ampm1);
+    font.print(clock1.AmOrPm.toLocaleLowerCase(), _ampm1);
   }
   if (clock2.AmOrPm) {
-    util.display(clock2.AmOrPm, _ampm2);
+    font.print(clock2.AmOrPm.toLowerCase(), _ampm2);
   }
 
   // Design for Ionic
@@ -103,34 +112,40 @@ simpleMinutes.initialize(_offsetNegative, _offsetValue, "seconds", (clock1, cloc
   updateActivities();
 });
 
+function setHoursMinutes(folder: font.folder) {
+  // Hours
+  font.print(simpleMinutes.lastClock1.Hours + ":" + simpleMinutes.lastMinutes, _cloks1, folder);
+  font.print(simpleMinutes.lastClock2.Hours + ":" + simpleMinutes.lastMinutes, _cloks2, folder);
+}
+
 // Display clocks on Ionic
 function displayClocskIonic(clock1: simpleMinutes.FormatedDate, clock2: simpleMinutes.FormatedDate): void {
   if (locale.language === "fr-fr") {
-    _dates1Part1Container.y = 30;
-    _dates1Part2Container.y = 0;
-    _dates2Part1Container.y = 30;
-    _dates2Part2Container.y = 0;
+    _dates1Part2Container.class = "day-container md-up"
+    _dates2Part2Container.class = "day-container md-up"
+    _dates1Part1Container.class = "month-container md-down";
+    _dates2Part1Container.class = "month-container md-down";
   }
   else {
-    _dates1Part1Container.y = 0;
-    _dates1Part2Container.y = 30;
-    _dates2Part1Container.y = 0;
-    _dates2Part2Container.y = 30;
+    _dates1Part1Container.class = "month-container md-up";
+    _dates2Part1Container.class = "month-container md-up";
+    _dates1Part2Container.class = "day-container md-down"
+    _dates2Part2Container.class = "day-container md-down"
   }
 
   // Date 1
   if (clock1.Month) {
-    util.display(clock1.Month, _dates1Part1);
+    font.print(clock1.Month, _dates1Part1);
   }
   if (clock1.Day) {
-    util.display(clock1.Day, _dates1Part2);
+    font.print(clock1.Day, _dates1Part2);
   }
   // Date 2
   if (clock2.Month) {
-    util.display(clock2.Month, _dates2Part1);
+    font.print(clock2.Month, _dates2Part1);
   }
   if (clock2.Day) {
-    util.display(clock2.Day, _dates2Part2);
+    font.print(clock2.Day, _dates2Part2);
   }
 }
 
@@ -140,7 +155,7 @@ function displayClocskVersa(clock1: simpleMinutes.FormatedDate, clock2: simpleMi
     _dates1Part1Container.x = (device.screen.width / 2) - (clock1.Date.length * 12);
 
     // Values
-    util.display(clock1.Date, _dates1Part1);
+    font.print(clock1.Date, _dates1Part1);
   }
 
   if (clock2.Date) {
@@ -148,7 +163,7 @@ function displayClocskVersa(clock1: simpleMinutes.FormatedDate, clock2: simpleMi
     _dates2Part1Container.x = (device.screen.width / 2) - (clock2.Date.length * 12);
 
     // Values
-    util.display(clock2.Date, _dates2Part1);
+    font.print(clock2.Date, _dates2Part1);
   }
 }
 
@@ -175,25 +190,21 @@ simpleSettings.initialize(
     }
 
     if (settingsNew.colorBackground !== undefined) {
-      _background.style.fill = settingsNew.colorBackground;
+      utils.fill(_background, settingsNew.colorBackground);
       _batteryBackground.gradient.colors.c1 = settingsNew.colorBackground;
-      updateActivities(); // For achivement color
+      refreshActivitiesColors();
     }
 
     if (settingsNew.colorForeground !== undefined) {
-      _container.style.fill = settingsNew.colorForeground;
+      utils.fill(_container, settingsNew.colorForeground);
     }
 
     if (settingsNew.showBatteryBar !== undefined) {
-      _batteryBarContainer.style.display = settingsNew.showBatteryBar
-        ? "inline"
-        : "none";
+      utils.setVisibility(_batteryBarContainer, settingsNew.showBatteryBar);
     }
 
     if (settingsNew.showActivities !== undefined) {
-      _statsContainer.style.display = _settings.showActivities
-        ? "inline"
-        : "none";
+      utils.setVisibility(_statsContainer, _settings.showActivities);
       updateActivities();
     }
 
@@ -232,17 +243,14 @@ simpleHRM.initialize((newValue, bpm, zone, restingHeartRate) => {
   }
   // Animation
   if (newValue) {
-    _hrmIcon.animate("highlight");
+    utils.highlight(_hrmIcon);
   }
 
   // BPM value display
   if (bpm !== lastBpm) {
     if (bpm > 0) {
       //_hrmContainer.style.display = "inline";
-      let bpmString = bpm.toString();
-      _hrmTexts[0].href = util.getImageFromLeft(bpmString, 0);
-      _hrmTexts[1].href = util.getImageFromLeft(bpmString, 1);
-      _hrmTexts[2].href = util.getImageFromLeft(bpmString, 2);
+      font.print(bpm.toString(), _hrmTexts);
     } else {
       //_hrmContainer.style.display = "none";
     }
@@ -260,7 +268,7 @@ simpleActivities.initialize(updateActivities);
 // Update design when elevation gain is not available
 if (!simpleActivities.elevationIsAvailable()) {
   // hide elevation
-  _stats[1].style.display = "none";
+  _elevation.hide();
   // move stats 
   _statsContainer.x = 30;
 }
@@ -270,111 +278,91 @@ function updateActivities(): void {
   // Get activities
   const activities = simpleActivities.getNewValues();
 
-  updateActivityArc(_stats[0], activities.steps, _background.style.fill);
-  updateActivityArc(_stats[1], activities.elevationGain, _background.style.fill);
-  updateActivityArc(_stats[2], activities.calories, _background.style.fill);
-  updateActivityArc(_stats[3], activities.activeMinutes, _background.style.fill);
-  updateActivityArc(_stats[4], activities.distance, _background.style.fill);
+  _steps.set(activities.steps);
+  _calories.set(activities.calories);
+  _activesminutes.set(activities.activeZoneMinutes);
+  _distance.set(activities.distance);
+  _elevation.set(activities.elevationGain);
+
+  // _steps.set(new simpleActivities.Activity(0,100));
+  // _calories.set(new simpleActivities.Activity(25,100));
+  // _activesminutes.set(new simpleActivities.Activity(50,100));
+  // _distance.set(new simpleActivities.Activity(75,100));
+  // _elevation.set(new simpleActivities.Activity(100,100));
 }
 
-// Render an activity to an arc control (with goal render and colors update)
-function updateActivityArc(container: GraphicsElement, activity: simpleActivities.Activity, appBackgroundColor: string): void {
-  if (activity === undefined) return;
-  let arc = container.getElementsByTagName("arc")[1] as ArcElement; // First Arc is used for background
-  let circle = container.getElementsByTagName("circle")[0] as CircleElement;
-  let image = container.getElementsByTagName("image")[0] as ImageElement;
-
-  // Goals ok
-  if (activity.actual >= activity.goal) {
-    circle.style.display = "inline";
-    arc.style.display = "none";
-    image.style.fill = appBackgroundColor;
-  }
-  else {
-    circle.style.display = "none";
-    arc.style.display = "inline";
-    arc.sweepAngle = activity.as360Arc(); //util.activityToAngle(activity.goal, activity.actual);
-    if (container.style.fill)
-      image.style.fill = container.style.fill;
-  }
+function refreshActivitiesColors() {
+  _steps.refresh();
+  _calories.refresh();
+  _activesminutes.refresh();
+  _distance.refresh();
+  _elevation.refresh();
 }
+
 // --------------------------------------------------------------------------------
 // Allway On Display
 // --------------------------------------------------------------------------------
-import { me } from "appbit";
-import { display } from "display";
-import clock from "clock"
+simpleDisplay.initialize(onEnterdAOD, onLeavedAOD, onDisplayGoON);
 
-// does the device support AOD, and can I use it?
-if (display.aodAvailable && me.permissions.granted("access_aod")) {
-  // tell the system we support AOD
-  display.aodAllowed = true;
+function onEnterdAOD() {
+  // Stop sensors
+  simpleHRM.stop();
 
-  // respond to display change events
-  display.addEventListener("change", () => {
+  // // Resize 
+  // _clockContainer1.x = (252 - 126) / 2;
+  // _clockContainer1.y = 70;
+  // _clockContainer1.height = 42;
+  // _clockContainer1.width = 126;
+  // _clockContainer2.x = (252 - 126) / 2;
+  // _clockContainer2.y = 70;
+  // _clockContainer2.height = 42;
+  // _clockContainer2.width = 126;
+  setHoursMinutes("chars-aod");
 
-    // console.info(`${display.aodAvailable} ${display.aodEnabled} ${me.permissions.granted("access_aod")} ${display.aodAllowed} ${display.aodActive}`);
+  // Hide elements
+  utils.hide(_dates1Part1Container);
+  utils.hide(_dates1Part2Container);
+  utils.hide(_dates2Part1Container);
+  utils.hide(_dates2Part2Container);
+  utils.hide(_background);
+  utils.hide(_hrmConteiner);
+  utils.hide(_statsContainer);
+  utils.hide(_batteryBarContainer);
+}
 
-    // Is AOD inactive and the display is on?
-    if (!display.aodActive && display.on) {
-      clock.granularity = "seconds";
+function onLeavedAOD() {
+  // // Resize
+  // _clockContainer1.x = 0;
+  // _clockContainer1.y = 0;
+  // _clockContainer1.height = 84;
+  // _clockContainer1.width = 252;
+  // _clockContainer2.x = 0;
+  // _clockContainer2.y = 0;
+  // _clockContainer2.height = 84;
+  // _clockContainer2.width = 252;
+  setHoursMinutes("chars");
 
-      // Resize
-      _clockContainer1.x = 0;
-      _clockContainer1.y = 0;
-      _clockContainer1.height = 84;
-      _clockContainer1.width = 252;
-      _clockContainer2.x = 0;
-      _clockContainer2.y = 0;
-      _clockContainer2.height = 84;
-      _clockContainer2.width = 252;
+  // Show elements & start sensors
+  utils.show(_background);
+  utils.show(_dates1Part1Container);
+  utils.show(_dates1Part2Container);
+  utils.show(_dates2Part1Container);
+  utils.show(_dates2Part2Container);
+  utils.show(_hrmConteiner);
+  if (_settings.showActivities) utils.show(_statsContainer);
+  if (_settings.showBatteryBar) utils.show(_batteryBarContainer);
 
-      // Show elements & start sensors
-      _background.style.display = "inline";
-      _dates1Part1Container.style.display = "inline";
-      _dates1Part2Container.style.display = "inline";
-      _dates2Part1Container.style.display = "inline";
-      _dates2Part2Container.style.display = "inline";
-      // _ampmContainer1.style.display = "inline";
-      // _ampmContainer2.style.display = "inline";
+  // Start sensors
+  simpleHRM.start();
+}
 
-      if (_settings.showActivities) {
-        _statsContainer.style.display = "inline";
-      }
-      _hrmConteiner.style.display = "inline";
-      if (_settings.showBatteryBar) {
-        _batteryBarContainer.style.display = "inline";
-      }
-
-      // Start sensors
-      simpleHRM.start();
-    } else {
-      clock.granularity = "minutes";
-
-      // Stop sensors
-      simpleHRM.stop();
-
-      // Resize 
-      _clockContainer1.x = (252 - 126) / 2;
-      _clockContainer1.y = 70;
-      _clockContainer1.height = 42;
-      _clockContainer1.width = 126;
-      _clockContainer2.x = (252 - 126) / 2;
-      _clockContainer2.y = 70;
-      _clockContainer2.height = 42;
-      _clockContainer2.width = 126;
-
-      // Hide elements
-      _dates1Part1Container.style.display = "none";
-      _dates1Part2Container.style.display = "none";
-      _dates2Part1Container.style.display = "none";
-      _dates2Part2Container.style.display = "none";
-      // _ampmContainer1.style.display = "none";
-      // _ampmContainer2.style.display = "none";
-      _background.style.display = "none";
-      _statsContainer.style.display = "none";
-      _hrmConteiner.style.display = "none";
-      _batteryBarContainer.style.display = "none";
-    }
-  });
+/**
+ * Display is on
+ */
+function onDisplayGoON(){
+  _steps.onDiplayGoOn();
+  _calories.onDiplayGoOn();
+  _activesminutes.onDiplayGoOn();
+  _distance.onDiplayGoOn();
+  _elevation.onDiplayGoOn();
 }

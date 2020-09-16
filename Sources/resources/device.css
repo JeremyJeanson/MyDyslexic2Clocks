@@ -15,30 +15,22 @@
     height: 30;
 }
 .day-container {
-    x:280;
+    x:270;
     height: 30;
 }  
+.md-up{
+  y:0;
+}
+.md-down{
+  y:34;
+}
 .ampm-container{
   x:270;
-  y:60;
+  y:64;
 }
 
-  #stats-container svg{
-    height: 30;
-    width: 30;
-  }
-  .stats-steps-container{
-    x:14;
-  }
-  .stats-floors-container{
-    x:$+14;
-  }
-  .stats-cals-container{
-    x:$+14;
-  }
-  .stats-am-container{
-    x:$+14;
-  }
-  .stats-dist-container{
-    x:$+14;
-  }
+.stat{
+  height: 30;
+  width: 30;
+  x:$+14;
+}

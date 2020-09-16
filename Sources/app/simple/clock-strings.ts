@@ -17,7 +17,7 @@ const months = [
     gettext("month11"),
     gettext("month12")
 ];
-import * as util from "./utils";
+
 type Granularity = 'off' | 'seconds' | 'minutes' | 'hours';
 type AmOrPm = "AM" | "PM" | "  ";
 
@@ -43,9 +43,9 @@ let _offsetValue: number;
 let _lastDate: Date;
 
 // Ouputs
-let _lastClock1: FormatedDate;
-let _lastClock2: FormatedDate;
-let _lastMinutes: string;
+export let lastClock1: FormatedDate;
+export let lastClock2: FormatedDate;
+export let lastMinutes: string;
 
 // Initialize the call back
 export function initialize(offsetNegative: boolean, offsetValue: number, granularity: Granularity, callback: (clock1: FormatedDate, clock2: FormatedDate, mins: string) => void): void {
@@ -103,8 +103,8 @@ function Update(date: Date) {
         date.getUTCHours() + delta,
         date.getUTCMinutes(),
         date.getUTCSeconds(),
-        date.getUTCMilliseconds());   
-        
+        date.getUTCMilliseconds());
+
     // Update date 2
     const hours2 = date2.getHours();
 
@@ -117,69 +117,69 @@ function Update(date: Date) {
     clock2.AmOrPm = getAmorPm(hours2);
 
     // Format the minutes
-    let minutesOut = util.zeroPad(date.getMinutes());
+    let minutesOut = zeroPad(date.getMinutes());
 
     // Foramat the date
     FormatDate(date, clock1);
     FormatDate(date2, clock2);
 
     // Test undifined values
-    if (_lastClock1 === undefined) _lastClock1 = new FormatedDate();
-    if (_lastClock2 === undefined) _lastClock2 = new FormatedDate();
+    if (lastClock1 === undefined) lastClock1 = new FormatedDate();
+    if (lastClock2 === undefined) lastClock2 = new FormatedDate();
 
     // Save or updage values
     // Hours
-    if (_lastClock1.Hours != clock1.Hours) {
-        _lastClock1.Hours = clock1.Hours;
+    if (lastClock1.Hours != clock1.Hours) {
+        lastClock1.Hours = clock1.Hours;
     }
     else {
         clock1.Hours = null;
     }
-    if (_lastClock2.Hours != clock2.Hours) {
-        _lastClock2.Hours = clock2.Hours;
+    if (lastClock2.Hours != clock2.Hours) {
+        lastClock2.Hours = clock2.Hours;
     }
     else {
         clock2.Hours = null;
     }
     // AM or PM
-    if (_lastClock1.AmOrPm != clock1.AmOrPm) {
-        _lastClock1.AmOrPm = clock1.AmOrPm;
+    if (lastClock1.AmOrPm != clock1.AmOrPm) {
+        lastClock1.AmOrPm = clock1.AmOrPm;
     }
     else {
         clock1.AmOrPm = null;
     }
-    if (_lastClock2.AmOrPm != clock2.AmOrPm) {
-        _lastClock2.AmOrPm = clock2.AmOrPm;
+    if (lastClock2.AmOrPm != clock2.AmOrPm) {
+        lastClock2.AmOrPm = clock2.AmOrPm;
     }
     else {
         clock2.AmOrPm = null;
     }
     // Minutes
-    if (_lastMinutes != minutesOut) {
-        _lastMinutes = minutesOut;
+    if (lastMinutes != minutesOut) {
+        lastMinutes = minutesOut;
     }
     else {
         minutesOut = null;
     }
 
-    if (_lastClock1.Month != clock1.Month
-        || _lastClock1.Day != clock1.Day
-        || _lastClock1.Date != clock1.Date) {
-        _lastClock1.Month = clock1.Month;
-        _lastClock1.Day = clock1.Day;
-        _lastClock1.Date = clock1.Date;
+    if (lastClock1.Month != clock1.Month
+        || lastClock1.Day != clock1.Day
+        || lastClock1.Date != clock1.Date) {
+        lastClock1.Month = clock1.Month;
+        lastClock1.Day = clock1.Day;
+        lastClock1.Date = clock1.Date;
     }
     else {
         clock1.Month = null;
         clock1.Day = null;
         clock1.Date = null;
     }
-    if (_lastClock2.Month != clock2.Month
-        || _lastClock2.Day != clock2.Day
-        || _lastClock2.Date != clock2.Date) {
-        _lastClock2.Month = clock2.Month;
-        _lastClock2.Day = clock2.Day;
-        _lastClock2.Date = clock2.Date;
+    if (lastClock2.Month != clock2.Month
+        || lastClock2.Day != clock2.Day
+        || lastClock2.Date != clock2.Date) {
+        lastClock2.Month = clock2.Month;
+        lastClock2.Day = clock2.Day;
+        lastClock2.Date = clock2.Date;
     }
     else {
         clock2.Month = null;
@@ -195,7 +195,7 @@ function Update(date: Date) {
 function FormatHours(hours: number): string {
     if (hours === undefined) return "";
     let result = _clockDisplay24 === undefined || _clockDisplay24 === true
-        ? util.zeroPad(hours)
+        ? zeroPad(hours)
         : (hours % 12 || 12).toString();
     if (result.length === 1) result = " " + result;
     return result;
@@ -215,6 +215,12 @@ function FormatDate(date: Date, clock: FormatedDate): void {
     clock.Day = day === undefined ? "" : day.toString();
 }
 
+// Add zero in front of numbers < 10
+function zeroPad(i: number): string {
+    return i < 10
+        ? "0" + i.toString()
+        : i.toString();
+}
 // Format AM or PM base on hours
 function getAmorPm(hours: number): AmOrPm {
     // Format AM / PM if requested

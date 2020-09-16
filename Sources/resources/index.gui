@@ -105,36 +105,51 @@
     </svg>  
   </svg>
   <svg id="stats-container">
-    <svg class="stats-steps-container">
+    <use id="steps" class="stat steps" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/stat_steps_solid_48px.png"/>
+    </use>
+    <use id="calories" class="stat calories" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/stat_cals_solid_48px.png"/>
+    </use>
+    <use id="activesminutes" class="stat activesminutes" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/stat_azm_solid_48px.png"/>
+    </use>
+    <use id="distance" class="stat distance" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/stat_dist_solid_48px.png"/>
+    </use>
+    <use id="elevation" class="stat elevation" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/stat_floors_solid_48px.png"/>
+    </use>
+    <!-- <svg class="steps">
       <arc class="arc-background"/>
       <circle />
       <arc/>
-      <image />
+      <image class="steps" />
     </svg>
-    <svg class="stats-floors-container">
+    <svg class="calories">
       <arc class="arc-background"/>
       <circle />
       <arc/>
-      <image/>
+      <image class="calories"/>
     </svg>
-    <svg class="stats-cals-container">
+    <svg class="activesminutes">
       <arc class="arc-background"/>
       <circle />
       <arc/>
-      <image/>
+      <image class="activesminutes"/>
     </svg>
-    <svg class="stats-am-container">
+    <svg class="distance">
       <arc class="arc-background"/>
       <circle />
       <arc/>
-      <image/>
+      <image class="distance"/>
     </svg>
-    <svg class="stats-dist-container">
+    <svg class="elevation">
       <arc class="arc-background"/>
       <circle/>
       <arc/>
-      <image/>
-    </svg>
+      <image class="elevation"/>
+    </svg> -->
   </svg>
   <svg id="hrm-container">
     <use id="hrm-symbol" href="#heart-beat" />
