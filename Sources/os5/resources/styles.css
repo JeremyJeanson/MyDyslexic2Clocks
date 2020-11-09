@@ -1,0 +1,81 @@
+#container{
+  fill: white;
+}
+#background {
+  x: 0;
+  y: 0;
+  width: 100%;
+  height: 100%;
+  fill: black;
+}
+.clock-container {
+  x: 0;
+  y: 0;
+  height: 84;
+  width: 252;
+}
+.clock-container image {
+  x:$;
+  height: 100%;
+  width: 23%;
+}  
+.clock-container .clock-doublepoints{
+  width:8%;
+  href:"chars/58.png";
+}
+
+.month-container image{
+  x:$;
+  y:0;
+  width: 20;
+  height: 30;
+}
+.day-container image{
+  x:$;
+  y:0;
+  width: 20;
+  height: 30;
+}
+.ampm-container image{
+  x:$;
+  y:0;
+  width: 20;
+  height: 30;
+}
+#hrm-container{
+  height: 30;
+  width: 100;
+  x:100%-100;
+  y:100%-40;  
+}
+#hrm-symbol {
+  width: 20;
+  height: 24;
+  fill: #FF214A;
+}
+#hrm-text-container{
+  x:26;
+}
+#hrm-text-container image{
+  x:$;
+  width: 20;
+  height: 24;
+}
+#battery-bar-container{
+  x: 0;
+  y: 100%-6;
+  height: 6;
+  width: 100%;
+}
+#battery-bar-background{
+  height: 100%;
+  width: 100%;
+}
+#battery-bar-value{
+  height: 100%;
+  width: 100%;
+}
+#stats-container{
+  x:0;
+  y:100%-44;
+}

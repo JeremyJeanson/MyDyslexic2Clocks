@@ -3,7 +3,7 @@ A really simple clock + a second clock. You can select the seconde clock time zo
 It use a font designed to make life easier for dyslexic people.
 This clock is build for fitbit smartwatchs (Ionic, Versa, Versa 2 & Versal Light).
 
-![Ionic screenshot 1](Screenshots/ionic1.png)
+![Ionic screenshot 1](Screenshots/ionic10.png)
 
 # Features
 It include :
@@ -18,7 +18,7 @@ It include :
 Let me know if you need more ;)
 
 # Demo
-This clock can be installed on your Ionic or Versa via this link: [Fitbit store](https://gam.fitbit.com/gallery/clock/830ab660-01f1-49bf-bc2e-fb951a4fb7b4)
+This clock can be installed on your device (Sense, Versa3, Ionic, Versa 2 ...) via this link: [Fitbit store](https://gam.fitbit.com/gallery/clock/830ab660-01f1-49bf-bc2e-fb951a4fb7b4)
 
 # Why?
 I have shared this code to allow developer to make more clocks accessible for dyslexic users.

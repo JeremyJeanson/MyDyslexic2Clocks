@@ -1,0 +1,41 @@
+.clock-container{
+  x:50%-126;
+  height: 84;
+}
+#clock1{
+    y:18;
+    height: 84;
+  }
+#clock2{
+    y:$+40;
+    height: 84;
+}
+.month-container {
+    y:90;  
+}
+.ampm-container{
+  x:100%-100;
+  y:90;
+}
+.day-container {
+    display: none;
+}  
+#stats-container{
+  x:20;
+  y:100%-60;
+}
+#stats-container .stat{
+    height: 30;
+    width: 30;
+    x:$+8;
+  }
+#battery-bar-container{
+  x:60;
+  y: 100%-10;
+  height: 10;
+  width: 100%-120;
+}
+#hrm-container{
+  x:100%-116;
+  y:100%-58;
+}

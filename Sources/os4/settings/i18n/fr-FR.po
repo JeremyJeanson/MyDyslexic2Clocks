@@ -1,0 +1,29 @@
+msgid "secondSlock"
+msgstr "Seconde horloge"
+
+msgid "setSecondSlock"
+msgstr "Sélectionner le fuseau horaire"
+
+msgid "backgroundColor"
+msgstr "Couleur de fond"
+
+msgid "textColor"
+msgstr "Couleur du texte"
+
+msgid "showBatteryBar"
+msgstr "Afficher le % de batterie"
+
+msgid "showActivities"
+msgstr "Afficher les activités"
+
+msgid "clockFormat"
+msgstr "Définir le format horaire"
+
+msgid "clockFormatUser"
+msgstr "Profil Fitbit"
+
+msgid "clockFormat12h"
+msgstr "12 Heures"
+
+msgid "clockFormat24h"
+msgstr "24 Heures"

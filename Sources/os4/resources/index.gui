@@ -1,0 +1,174 @@
+<svg id="container">
+  <rect id="background" />
+  <svg>
+    <svg id="clock1">
+      <svg id="clock-container1" class="clock-container">
+        <image />
+        <image />
+        <image class="clock-doublepoints" />
+        <image />
+        <image />
+      </svg>
+      <svg id="month-container1" class="month-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>  
+      <svg id="day-container1" class="day-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>
+      <svg id="ampm-container1" class="ampm-container">
+        <image />
+        <image />
+      </svg>  
+    </svg>  
+    <svg id="clock2">
+      <svg id="clock-container2" class="clock-container">
+        <image />
+        <image />
+        <image class="clock-doublepoints" />
+        <image />
+        <image />
+      </svg>
+      <svg id="month-container2" class="month-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>
+      <svg id="day-container2" class="day-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>
+      <svg id="ampm-container2" class="ampm-container">
+        <image />
+        <image />
+      </svg>    
+    </svg>  
+  </svg>
+  <svg id="stats-container">
+    <use id="steps" class="stat steps" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/steps_36px.png"/>
+    </use>
+    <use id="calories" class="stat calories" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/calories_36px.png"/>
+    </use>
+    <use id="activesminutes" class="stat activesminutes" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/azm_36px.png"/>
+    </use>
+    <use id="distance" class="stat distance" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/distance_36px.png"/>
+    </use>
+    <use id="elevation" class="stat elevation" href="#activity-symbol">
+      <set href="image" attributeName="href" to="images/floors_36px.png"/>
+    </use>
+    <!-- <svg class="steps">
+      <arc class="arc-background"/>
+      <circle />
+      <arc/>
+      <image class="steps" />
+    </svg>
+    <svg class="calories">
+      <arc class="arc-background"/>
+      <circle />
+      <arc/>
+      <image class="calories"/>
+    </svg>
+    <svg class="activesminutes">
+      <arc class="arc-background"/>
+      <circle />
+      <arc/>
+      <image class="activesminutes"/>
+    </svg>
+    <svg class="distance">
+      <arc class="arc-background"/>
+      <circle />
+      <arc/>
+      <image class="distance"/>
+    </svg>
+    <svg class="elevation">
+      <arc class="arc-background"/>
+      <circle/>
+      <arc/>
+      <image class="elevation"/>
+    </svg> -->
+  </svg>
+  <svg id="hrm-container">
+    <use id="hrm-symbol" href="#heart-beat" />
+    <svg id="hrm-text-container">
+      <image />
+      <image />
+      <image />
+    </svg>
+  </svg>
+  <svg id="battery-bar-container">
+    <gradientRect id="battery-bar-background"
+      gradient-type="linear"
+      gradient-x1="0" gradient-y1="100%-6"
+      gradient-x2="0" gradient-y1="100%-2"
+      gradient-color1="black" gradient-color2="darkred" />
+    <gradientRect id="battery-bar-value"
+      gradient-type="linear"
+      gradient-x1="0" gradient-y1="100%"
+      gradient-x2="0" gradient-y1="100%-6"
+      gradient-color1="yellowgreen" gradient-color2="darkgreen" />
+  </svg>
+</svg>
